@@ -9,24 +9,23 @@ load_dotenv()
 # if you saved the key under a different environment variable name, you can do something like:
 client = OpenAI(
   api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
-model="gpt-3.5-turbo",
-messages=[
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+  messages=[
     {"role": "system", "content": "You are a poet."},
     {"role": "user", "content": "Compose a poem to greet a person."}
   ],
-temperature=0.7,  # Adjusts the creativity level of the response
-max_tokens=150,  # Limits the length of the response
-top_p=1,  # Controls the diversity via nucleus sampling
-fun()
+  temperature=0.7,  # Adjusts the creativity level of the response
+  max_tokens=150,  # Limits the length of the response
+  top_p=1,  # Controls the diversity via nucleus sampling
+)
+
 
 # print(response.choices[0].message.content)
 print(response.usage.total_tokens)
-print(response.usage.completion_tokens)
-
-def fun(model,messages,temperature,max_tokens,top_p):
-  response = client.chat.completions.create(model,messages,temperature,max_tokens,top_p)
-  return response
+# print(response.usage.completion_tokens)
 
   
 
